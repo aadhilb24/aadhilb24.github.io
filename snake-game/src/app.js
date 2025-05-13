@@ -88,10 +88,10 @@ function draw() {
 
     let newHead = { x: snakeX, y: snakeY };
 
-    let hitLeftWall = snakeX <= WALL_OFFSET_LEFT;
-    let hitRightWall = snakeX >= WALL_OFFSET_RIGHT;
-    let hitTopWall = snakeY <= WALL_OFFSET_TOP;
-    let hitBottomWall = snakeY >= WALL_OFFSET_BOTTOM;
+    let hitLeftWall = snakeX < WALL_OFFSET_LEFT;
+    let hitRightWall = snakeX > WALL_OFFSET_RIGHT;
+    let hitTopWall = snakeY < WALL_OFFSET_TOP;
+    let hitBottomWall = snakeY > WALL_OFFSET_BOTTOM;
     let hitWall = hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
     let hitSelf = collision(newHead, snake);
 
