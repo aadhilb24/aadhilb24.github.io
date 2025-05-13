@@ -18,6 +18,9 @@ let food = {
     y: Math.floor(Math.random() * 15 + 3) * box
 };
 let directionChanged = false; // Flag to track direction change
+let foodCounter = 0; // Initialize food counter
+
+const foodCounterElement = document.getElementById('foodCounter'); // Get the food counter element
 
 document.addEventListener('keydown', directionControl);
 
@@ -78,6 +81,9 @@ function draw() {
     if (direction === 'DOWN') snakeY += box;
 
     if (snakeX === food.x && snakeY === food.y) {
+        foodCounter++;
+        foodCounterElement.textContent = `Food Consumed: ${foodCounter}`; // Update the GUI counter
+        console.log('Food Consumed:', foodCounter);
         food = {
             x: Math.floor(Math.random() * 17 + 1) * box,
             y: Math.floor(Math.random() * 15 + 3) * box
@@ -111,11 +117,38 @@ function draw() {
         console.log('Hit Bottom Wall:', hitBottomWall);
         console.log('Hit Self:', hitSelf);
         clearInterval(game);
+        showGameOverAnimation(); // Show game over animation
     }
 
     snake.unshift(newHead);
 
     directionChanged = false; // Reset the flag at the end of the loop
+}
+
+function showGameOverAnimation() {
+    const gameOverText = document.createElement('div');
+    gameOverText.textContent = 'Game Over';
+    gameOverText.style.position = 'absolute';
+    gameOverText.style.top = '50%';
+    gameOverText.style.left = '50%';
+    gameOverText.style.transform = 'translate(-50%, -50%)';
+    gameOverText.style.fontSize = '48px';
+    gameOverText.style.color = 'red';
+    gameOverText.style.fontWeight = 'bold';
+    gameOverText.style.animation = 'fadeInOut 2s infinite';
+    gameOverText.style.backgroundColor = 'black';
+    gameOverText.style.padding = '20px';
+    gameOverText.style.borderRadius = '10px';
+    document.body.appendChild(gameOverText);
+
+    // Add keyframes for animation
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(`
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    `, styleSheet.cssRules.length);
 }
 
 let game = setInterval(draw, 100);
