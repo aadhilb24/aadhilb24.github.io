@@ -1,6 +1,11 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+canvas.style.position = 'absolute';
+canvas.style.top = '50%';
+canvas.style.left = '50%';
+canvas.style.transform = 'translate(-50%, -50%)';
+
 const box = 20;
 const CANVAS_WIDTH = canvas.width;
 const CANVAS_HEIGHT = canvas.height;
@@ -21,6 +26,13 @@ let directionChanged = false; // Flag to track direction change
 let foodCounter = 0; // Initialize food counter
 
 const foodCounterElement = document.getElementById('foodCounter'); // Get the food counter element
+
+foodCounterElement.style.position = 'absolute';
+foodCounterElement.style.top = '10px';
+foodCounterElement.style.left = '50%';
+foodCounterElement.style.transform = 'translateX(-50%)';
+foodCounterElement.style.fontSize = '30px';
+foodCounterElement.style.color = 'black';
 
 document.addEventListener('keydown', directionControl);
 
@@ -52,18 +64,18 @@ function collision(head, array) {
 }
 
 function draw() {
-    ctx.fillStyle = 'lightgreen';
+    ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     for (let row = 0; row < canvas.height / box; row++) {
         for (let col = 0; col < canvas.width / box; col++) {
-            ctx.strokeStyle = 'lightgray';
+            ctx.strokeStyle = 'green';
             ctx.strokeRect(col * box, row * box, box, box);
         }
     }
 
     for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = (i === 0) ? 'green' : 'white';
+        ctx.fillStyle = (i === 0) ? 'red' : 'red';
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
         ctx.strokeStyle = 'red';
         ctx.strokeRect(snake[i].x, snake[i].y, box, box);
@@ -137,8 +149,8 @@ function showGameOverAnimation() {
     gameOverText.style.fontWeight = 'bold';
     gameOverText.style.animation = 'fadeInOut 2s infinite';
     gameOverText.style.backgroundColor = 'black';
-    gameOverText.style.padding = '20px';
-    gameOverText.style.borderRadius = '10px';
+    gameOverText.style.padding = '30px';
+    gameOverText.style.borderRadius = '40px';
     document.body.appendChild(gameOverText);
 
     // Add keyframes for animation
